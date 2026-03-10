@@ -30,7 +30,7 @@ public class DepartmentController {
         return new ResponseEntity<>(allDepartments, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{departmentId}")
     public ResponseEntity<DepartmentDTO> getDepartmentById(@PathVariable Long id) {
         DepartmentDTO departmentById = departmentService.getDepartmentById(id);
         return new ResponseEntity<>(departmentById,HttpStatus.OK);
@@ -42,13 +42,13 @@ public class DepartmentController {
         return new ResponseEntity<>(departmentCreated,HttpStatus.CREATED);
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/{departmentId}")
     public ResponseEntity<DepartmentDTO> updateDepartmentById(@Valid @RequestBody DepartmentDTO departmentDTO,@PathVariable Long departmentId ){
         DepartmentDTO departmentDTO1 = departmentService.updateDepartmentById(departmentId, departmentDTO);
         return new ResponseEntity<>(departmentDTO1,HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{departmentId}")
     public ResponseEntity<Boolean> deleteDepartmentById(@PathVariable Long departmentId){
         boolean gotDeleted = departmentService.deleteDepartmentById(departmentId);
         return gotDeleted ? ResponseEntity.ok(true) : ResponseEntity.notFound().build();
