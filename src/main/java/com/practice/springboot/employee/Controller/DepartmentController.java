@@ -2,6 +2,7 @@ package com.practice.springboot.employee.Controller;
 
 import com.practice.springboot.employee.Entity.Department;
 import com.practice.springboot.employee.Payload.DepartmentDTO;
+import com.practice.springboot.employee.Payload.UserDTO;
 import com.practice.springboot.employee.Service.DepartmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +66,12 @@ public class DepartmentController {
         if (departmentDTO == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(departmentDTO);
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity<String> createUser(@Valid @RequestBody UserDTO userDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("User created successfully");
     }
 
 }
