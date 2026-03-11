@@ -1,6 +1,7 @@
 package com.practice.springboot.employee.Service;
 
 import com.practice.springboot.employee.Entity.Department;
+import com.practice.springboot.employee.Exception.ResourceNotFoundException;
 import com.practice.springboot.employee.Payload.DepartmentDTO;
 import com.practice.springboot.employee.Repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +52,7 @@ public class DepartmentService {
 
     public DepartmentDTO getDepartmentById(Long id) {
         Department department = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+                .orElseThrow(() -> new RuntimeException("Department not found with id:"+id));
         return modelMapper.map(department, DepartmentDTO.class);
     }
 
@@ -86,7 +87,7 @@ public class DepartmentService {
                                                      Map<String, Object> updates) {
 
         isExistsByDepartmentId(departmentId);
-        Department departmentEntity = repository.findById(departmentId).get();
+        Department departmentEntity = repository.findById(departmentId).orElseThrow(()->new ResourceNotFoundException("Department not found with id: " + departmentId));
         updates.forEach((field, value) -> {
 
             Field fieldToBeUpdated =
