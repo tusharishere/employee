@@ -52,7 +52,7 @@ public class DepartmentService {
 
     public DepartmentDTO getDepartmentById(Long id) {
         Department department = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Department not found with id:"+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with id:"+id));
         return modelMapper.map(department, DepartmentDTO.class);
     }
 
@@ -73,7 +73,7 @@ public class DepartmentService {
 
     public void isExistsByDepartmentId(Long departmentId) {
         if (!repository.existsById(departmentId)) {
-            throw new RuntimeException("Department not found with id: " + departmentId);
+            throw new ResourceNotFoundException("Department not found with id: " + departmentId);
         }
     }
 
